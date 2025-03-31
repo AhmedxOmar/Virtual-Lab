@@ -1,10 +1,46 @@
 [
     {
-        "id": "introduction",
-        "title": "Introduction to OpenCV"
+        "id": "chapter_1_introduction_to_image_processing",
+        "title": "Introduction to Image Processing"
     },
     {
-        "id": "topic-2",
-        "title": "Image Filtering"
+        "id": "chapter_2_digital_image_processing_fundamentals",
+        "title": "Digital Image Processing Fundamentals"
+    },
+    {
+        "id": "chapter_2_fundamentals_of_digital_images_representation_and_scaling",
+        "title": "Fundamentals of Digital Images: Representation and Scaling"
+    },
+    {
+        "id": "chapter_3_image_enhancement_intensity_histogram",
+        "title": "Image Enhancement: Median Filter and Nonlinear Filtering"
+    },
+    {
+        "id": "chapter_3_image_enhancement_median_filter_nonlinear_filtering",
+        "title": "Image Enhancement: Intensity Histogram"
+    },
+    {
+        "id": "chapter_3_image_enhancement_techniques",
+        "title": "Image Enhancement Techniques"
+    },
+    {
+        "id": "chapter_4_spatial_filtering_and_operations",
+        "title": "Spatial Filtering and Operations"
+    },
+    {
+        "id": "chapter_5_frequency_domain_processing_fourier",
+        "title": "Frequency Domain Processing (Fourier)"
+    },
+    {
+        "id": "chapter_6_image_segmentation",
+        "title": "Image Segmentation"
+    },
+    {
+        "id": "chapter_8_morphological_image_processing_object_detection",
+        "title": "Morphological Image Processing: Object Detection"
+    },
+    {
+        "id": "chapter_9_color_image_processing",
+        "title": "Color Image Processing"
     }
 ]
