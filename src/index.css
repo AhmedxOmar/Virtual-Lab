@@ -1,5 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @import "tailwindcss";
+
 @plugin "@tailwindcss/typography";
+
+
+.inter-thin {
+  font-family: "Inter", sans-serif;
+  font-weight: 100;
+}
+
+.inter-extra-light {
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+}
+
+.inter-light {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+}
+
+.inter-regular {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+.inter-medium {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+.inter-semi-bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+.inter-bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
+.inter-extra-bold {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+}
+
+.inter-black {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 :root {
@@ -37,7 +104,8 @@ body {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  /*   border: 1px solid transparent;
+ */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -67,4 +135,127 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.proflieSidebar .sidebarTab {
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.proflieSidebar .sidebarTab .sidebarIcon {
+  color: #B7B5B5;
+}
+
+.proflieSidebar .sidebarTab:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  transition: 0.1s ease-in-out;
+
+}
+
+.proflieSidebar .sidebarTab.active {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+
+.proflieSidebar .sidebarTab.active::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  width: 1.5%;
+  height: 30px;
+  background-color: #9C14EB;
+  border-radius: 8px;
+}
+
+.proflieSidebar .sidebarLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.80);
+}
+
+
+.profileHeader .profileImg {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.profileHeader input {
+  display: none;
+}
+
+.profileHeader label {
+  border: 1px solid #252525;
+  border-radius: 7px;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.profileHeader label:hover {
+  background: #fff;
+  color: #000;
+}
+
+
+.personalInfo {
+  padding: 20px;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  max-width: 100%;
+  min-width: 600px;
+}
+
+.personalInfo input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: max-content;
+
+}
+
+
+.bioSection {
+  max-width: 610px;
+  border-radius: 12px;
+  min-width: 610px;
+
+}
+
+.bioSection textarea {
+  width: 100%;
+  scrollbar-width: none;
+  min-height: 100px;
+}
+
+.bioSection p,
+.bioSection textarea {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+
+.personalInfo button,
+.bioSection button {
+  max-width: 85px;
+}
+
+
+.personalInfo p.editable {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.achievementBadge {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
 }

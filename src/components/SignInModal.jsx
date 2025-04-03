@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
+import { useNavigate } from 'react-router-dom';
 
 
 const SignInModal = ({ onClose, switchToSignUp }) => {
+
+    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
         email: "",
@@ -45,7 +48,11 @@ const SignInModal = ({ onClose, switchToSignUp }) => {
                 email: "",
                 password: "",
             });
+            localStorage.setItem("user", JSON.stringify(userData));
+            navigate("/profile");
+            onClose();
         }
+
     }
 
 

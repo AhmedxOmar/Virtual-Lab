@@ -71,6 +71,8 @@ const SignUpModal = ({ onClose, switchToSignIn }) => {
         e.preventDefault();
         if (validateForm()) {
             console.log('Form Submitted successfully', userData);
+            localStorage.setItem("user", JSON.stringify(userData));
+
             setUserData({
                 firstName: "",
                 lastName: "",
@@ -78,6 +80,9 @@ const SignUpModal = ({ onClose, switchToSignIn }) => {
                 password: "",
                 confirmPassword: "",
             })
+
+            // Redirect to profile
+            navigate('/profile');
         }
 
 

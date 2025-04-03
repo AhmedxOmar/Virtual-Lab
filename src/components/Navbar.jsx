@@ -12,7 +12,7 @@ const Navbar = () => {
 
             {/* Navigation Links */}
             <div style={styles.navLinks}>
-                <Link to="/docs/introduction" className="text-white text-[16px] transition-colors">Docs</Link>
+                <Link to="/docs/chapter_1_introduction_to_image_processing" className="text-white text-[16px] transition-colors">Docs</Link>
                 <Link to="/About" className="text-white text-[16px] transition-colors">About</Link>
                 <Link to="/Blog" className="text-white text-[16px] transition-colors">Blog</Link>
                 <Link to="/Community" className="text-white text-[16px] transition-colors">Community</Link>
