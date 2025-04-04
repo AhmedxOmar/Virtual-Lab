@@ -228,8 +228,6 @@ const styles = {
         border: "1px solid #252525",
         borderRadius: "18px",
         width: "640px",
-        minHeight: "auto",
-        maxHeight: "90vh",
         overflowY: "none",
         transition: "transform 0.4s ease-in-out, opacity 0.4s ease-in-out",
         position: "relative"
