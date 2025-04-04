@@ -163,22 +163,25 @@ export default function MarkdownPage() {
                 </div>
 
                 {/* Table of Contents */}
-                <div className="markdownTableContainer">
-                    <div className="markdownTable">
-                        <ul>
-                            {headings.map((heading) => (
-                                <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
-                                    <button
-                                        onClick={() => handleScrollTo(heading.id)}
-                                        className="text-left w-full hover:text-blue-500 border-0 focus:outline-none"
-                                    >
-                                        {heading.text}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
+                {!loading && headings.length > 0 && (
+                    <div className="markdownTableContainer">
+                        <div className="markdownTable">
+                            <ul>
+                                {headings.map((heading) => (
+                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
+                                        <button
+                                            onClick={() => handleScrollTo(heading.id)}
+                                            className="text-left w-full hover:text-blue-500 focus:outline-none"
+                                        >
+                                            {heading.text}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                )}
+
             </div>
         </div>
     );
