@@ -5,12 +5,16 @@ import DocsLayout from "./layout/DocsLayout"; // New layout for docs
 
 import MarkdownPage from "./pages/MarkdownPage";
 import Profile from "./components/Profile";
+import Community from "./pages/Community";
+import About from "./pages/About";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/about" element={<About />} />
 
         {/* Parent Route for Docs */}
         <Route path="/docs/*" element={<DocsLayout />}>

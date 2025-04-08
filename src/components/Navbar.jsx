@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import AuthModalManager from "./AuthModalManager";
 import logo from "../assets/final-logo.png"
+import Searchbar from "./Searchbar";
 
 
 const Navbar = () => {
@@ -20,17 +21,24 @@ const Navbar = () => {
                 <Link to="/docs/chapter_1_introduction_to_image_processing" className="text-white text-[18px] transition-colors">Docs</Link>
                 <Link to="/About" className="text-white text-[18px] transition-colors">About</Link>
                 <Link to="/Blog" className="text-white text-[18px] transition-colors">Blog</Link>
-                <Link to="/Community" className="text-white text-[18px] transition-colors">Community</Link>
+                <Link to="/community" className="text-white text-[18px] transition-colors">Community</Link>
             </div>
 
-            {/* Sign Up Button */}
-            <button
-                className="bg-white text-black cursor-pointer border-none py-[8px] px-[16px] rounded-[8px] ease-in-out font-bold"
-                style={styles.button}
-                onClick={() => setActiveModal('signup')}
-            >
-                Sign Up
-            </button>
+            <div className="flex gap-[2rem]">
+                <div className="mx-4 hidden md:block mr-[5rem]">
+                    <Searchbar />
+
+                </div>
+
+                {/* Sign Up Button */}
+                <button
+                    className="bg-white text-black cursor-pointer border-none py-[8px] px-[16px] rounded-[8px] ease-in-out font-bold"
+                    style={styles.button}
+                    onClick={() => setActiveModal('signup')}
+                >
+                    Sign Up
+                </button>
+            </div>
 
             {/* Auth Modal Manager */}
             {activeModal && (

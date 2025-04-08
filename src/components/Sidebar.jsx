@@ -22,7 +22,7 @@ export default function Sidebar() {
                             return (
                                 <li
                                     key={topic.id}
-                                    className={`hover:bg-[#161616] transition ring-0 focus:bg-[#161616] cursor-pointer ${isActive ? "bg-[#161616]" : ""
+                                    className={`hover:bg-[#333] transition ring-0 focus:bg-[#333] cursor-pointer rounded-lg ${isActive ? "bg-[#333]" : ""
                                         }`}
                                 >
                                     <Link to={`/docs/${topic.id}`} className="">

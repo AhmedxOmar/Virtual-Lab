@@ -441,3 +441,43 @@ button:focus-visible {
   margin: 0.5rem;
   font-size: 13.6px;
 }
+
+.backgroundPatterns {
+  background-color: #000;
+  z-index: 4;
+}
+
+.backgroundPatterns::after {
+  background-image: url(./assets/about_background.jpg);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  opacity: 0.071;
+  z-index: -1;
+  filter: invert(1);
+}
+
+
+.about-cards {
+  transition: 0.3s ease-in-out;
+  border: 1px solid transparent;
+}
+
+.about-cards:hover {
+  transition: 0.3s ease-in-out;
+  border-color: #5865F2;
+}
+
+pre {
+  width: max-content;
+}
+
+
+.markdownTable button {
+  transition: 0.1s ease-in-out;
+}

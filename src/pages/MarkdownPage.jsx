@@ -86,7 +86,7 @@ export default function MarkdownPage() {
                 <div className="flex flex-1 flex-col markdownContentContainer">
                     <div className="prose prose-lg dark:prose-invert markdownContent">
                         {loading ? (
-                            <div className="space-y-4 animate-pulse">
+                            <div className="space-y-6 animate-pulse">
                                 <div className="h-8 bg-[#3b3b3b] rounded w-1/2"></div>
                                 <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
                                 <div className="h-2 bg-[#3b3b3b] rounded w-5/6"></div>
@@ -168,10 +168,10 @@ export default function MarkdownPage() {
                         <div className="markdownTable">
                             <ul>
                                 {headings.map((heading) => (
-                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
+                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm `}>
                                         <button
                                             onClick={() => handleScrollTo(heading.id)}
-                                            className="text-left w-full hover:text-blue-500 focus:outline-none"
+                                            className="text-left w-full hover:text-blue-500 focus:outline-none "
                                         >
                                             {heading.text}
                                         </button>
