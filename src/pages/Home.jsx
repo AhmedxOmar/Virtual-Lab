@@ -25,7 +25,6 @@ const Home = () => {
 
             </div>
             <ImageApplications />
-            <Hero />
         </div>
     )
 }

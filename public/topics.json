@@ -1,50 +1,132 @@
 [
     {
-        "id": "chapter_1_introduction_to_image_processing",
-        "title": "Introduction to Image Processing"
+        "chapter": "Chapter 1 Introduction to Image Processing",
+        "topics": [
+            {
+                "id": "chapter_1_1_what_is_image_processing",
+                "title": "What is Image Processing",
+                "path": "Chapter 1 - Introduction to Image Processing/1.1 - What is Image Processing.md"
+            },
+            {
+                "id": "chapter_1_2_types_of_image_processing",
+                "title": "Types of Image Processing",
+                "path": "Chapter 1 - Introduction to Image Processing/1.2 - Types of Image Processing.md"
+            },
+            {
+                "id": "chapter_1_3_applications",
+                "title": "Applications of Image Processing",
+                "path": "Chapter 1 - Introduction to Image Processing/1.3 - Applications of Image Processing.md"
+            },
+            {
+                "id": "chapter_1_4_electromagnetic_spectrum",
+                "title": "The Electromagnetic Spectrum",
+                "path": "Chapter 1 - Introduction to Image Processing/1.4 - The Electromagnetic Spectrum.md"
+            },
+            {
+                "id": "chapter_1_5_imaging_modalities",
+                "title": "Imaging Modalities",
+                "path": "Chapter 1 - Introduction to Image Processing/1.5 - Imaging Modalities.md"
+            }
+        ]
     },
     {
-        "id": "chapter_2_digital_image_processing_fundamentals",
-        "title": "Digital Image Processing Fundamentals"
+        "chapter": "Chapter 2 Digital Image Processing Fundamentals",
+        "topics": [
+            {
+                "id": "chapter_2_2_components",
+                "title": "Components of General Purpose",
+                "path": "Chapter 2 - Digital Image Processing Fundamentals/2.2 Components of General Purpose.md"
+            },
+            {
+                "id": "chapter_2_3_fundamental_concepts",
+                "title": "Fundamental Concepts",
+                "path": "Chapter 2 - Digital Image Processing Fundamentals/2.3 Fundamental concepts.md"
+            },
+            {
+                "id": "chapter_2_4_sampling_quantization",
+                "title": "Image Sampling and Quantization",
+                "path": "Chapter 2 - Digital Image Processing Fundamentals/2.4 Image Sampling and Quantization.md"
+            },
+            {
+                "id": "chapter_2_5_image_representation",
+                "title": "Image Representation",
+                "path": "Chapter 2 - Digital Image Processing Fundamentals/2.5 Image Representation.md"
+            },
+            {
+                "id": "chapter_2_6_image_matching_compression",
+                "title": "Image Matching, Compression (JPEG, JPEG2000)",
+                "path": "Chapter 2 - Digital Image Processing Fundamentals/2.6 Image Matching, Compression (JPEG, JPEG2000).md"
+            }
+        ]
     },
     {
-        "id": "chapter_2_fundamentals_of_digital_images_representation_and_scaling",
-        "title": "Fundamentals of Digital Images: Representation and Scaling"
+        "chapter": "Chapter 3 Image Enhancement Techniques",
+        "topics": [
+            {
+                "id": "chapter_3_1_histogram_equalization",
+                "title": "Histogram Equalization",
+                "path": "Chapter 3 - Image Enhancement Techniques/3.1 Histogram Equalization.md"
+            },
+            {
+                "id": "chapter_3_2_intensity_histogram",
+                "title": "Intensity Histogram",
+                "path": "Chapter 3 - Image Enhancement Techniques/3.2 Intensity Histogram.md"
+            },
+            {
+                "id": "chapter_3_3_spatial_domain_enhancement",
+                "title": "Spatial Domain Enhancement Linear Transformation",
+                "path": "Chapter 3 - Image Enhancement Techniques/3.3 Spatial Domain Enhancement Linear Transformation.md"
+            },
+            {
+                "id": "chapter_3_4_arithmetic_operations",
+                "title": "Arithmetic and Logical Operations and Spatial Filters",
+                "path": "Chapter 3 - Image Enhancement Techniques/3.4 Arithmetic and Logical Operations and Spatial Filters.md"
+            }
+        ]
     },
     {
-        "id": "chapter_3_image_enhancement_intensity_histogram",
-        "title": "Image Enhancement: Median Filter and Nonlinear Filtering"
+        "chapter": "Chapter 4 Spatial Filtering and Operations",
+        "topics": [
+            {
+                "id": "chapter_4_1_smoothing_filters",
+                "title": "Smoothing Filters",
+                "path": "Chapter 4 - Spatial Filtering and Operations/4.1 Smoothing Filters.md"
+            },
+            {
+                "id": "chapter_4_2_sharpening_filters",
+                "title": "Sharpening Filters",
+                "path": "Chapter 4 - Spatial Filtering and Operations/4.2 Sharpening Filters.md"
+            },
+            {
+                "id": "chapter_4_3_median_filter",
+                "title": "Median Filter",
+                "path": "Chapter 4 - Spatial Filtering and Operations/4.3 Median Filter.md"
+            }
+        ]
     },
     {
-        "id": "chapter_3_image_enhancement_median_filter_nonlinear_filtering",
-        "title": "Image Enhancement: Intensity Histogram"
-    },
-    {
-        "id": "chapter_3_image_enhancement_techniques",
-        "title": "Image Enhancement Techniques"
-    },
-    {
-        "id": "chapter_4_spatial_filtering_and_operations",
-        "title": "Spatial Filtering and Operations"
-    },
-    {
-        "id": "chapter_5_frequency_domain_processing_fourier",
-        "title": "Frequency Domain Processing (Fourier)"
-    },
-    {
-        "id": "chapter_6_image_segmentation",
-        "title": "Image Segmentation"
-    },
-    {
-        "id": "chapter_8_morphological_image_processing_object_detection",
-        "title": "Morphological Image Processing: Object Detection"
-    },
-    {
-        "id": "chapter_9_color_image_processing",
-        "title": "Color Image Processing"
-    },
-    {
-        "id": "section1.3",
-        "title": "Chapter 1"
+        "chapter": "Chapter 5 Frequency Domain Processing (Fourier)",
+        "topics": [
+            {
+                "id": "chapter_5_1_fourier_transforms",
+                "title": "Fourier Transforms",
+                "path": "Chapter 5 - Frequency Domain Processing (Fourier)/5.1 Fourier Transforms.md"
+            },
+            {
+                "id": "chapter_5_2_2d_fourier",
+                "title": "2D Fourier Transform",
+                "path": "Chapter 5 - Frequency Domain Processing (Fourier)/5.2 2D Fourier Transform.md"
+            },
+            {
+                "id": "chapter_5_3_lowpass_filter",
+                "title": "Lowpass Filter",
+                "path": "Chapter 5 - Frequency Domain Processing (Fourier)/5.3 Lowpass Filter.md"
+            },
+            {
+                "id": "chapter_5_4_highpass_filters",
+                "title": "Highpass Filters",
+                "path": "Chapter 5 - Frequency Domain Processing (Fourier)/5.4 Highpass Filters.md"
+            }
+        ]
     }
 ]

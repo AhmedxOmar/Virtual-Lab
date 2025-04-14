@@ -7,6 +7,7 @@ import MarkdownPage from "./pages/MarkdownPage";
 import Profile from "./components/Profile";
 import Community from "./pages/Community";
 import About from "./pages/About";
+import Quiz from "./pages/Quiz";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/community" element={<Community />} />
         <Route path="/about" element={<About />} />
+        <Route path="/quiz" element={<Quiz />} />
 
         {/* Parent Route for Docs */}
         <Route path="/docs/*" element={<DocsLayout />}>

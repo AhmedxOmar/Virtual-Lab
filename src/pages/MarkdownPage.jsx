@@ -7,22 +7,22 @@ export default function MarkdownPage() {
     const navigate = useNavigate();
     const [content, setContent] = useState("");
     const [headings, setHeadings] = useState([]);
-    const [topics, setTopics] = useState([]);
-    const [loading, setLoading] = useState(true); // 🔥 Track loading
+    const [chapters, setChapters] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchTopics = async () => {
+        const fetchChapters = async () => {
             try {
                 const response = await fetch("/topics.json");
-                if (!response.ok) throw new Error("Failed to load topics");
+                if (!response.ok) throw new Error("Failed to load chapters");
                 const data = await response.json();
-                setTopics(data);
+                setChapters(data);
             } catch (error) {
-                console.error("Error fetching topics:", error);
+                console.error("Error fetching chapters:", error);
             }
         };
 
-        fetchTopics();
+        fetchChapters();
     }, []);
 
     useEffect(() => {
@@ -35,11 +35,20 @@ export default function MarkdownPage() {
         const fetchMarkdown = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`/docs/${topicId}.md`);
+                const allTopics = chapters.flatMap(chapter => chapter.topics);
+                const topic = allTopics.find(t => t.id === topicId);
+
+                if (!topic) {
+                    throw new Error("Topic not found");
+                }
+
+                const response = await fetch(`/docs/${topic.path}`);
                 if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
                 const text = await response.text();
 
-                if (text.toLowerCase().includes("<!doctype html>")) throw new Error("Received HTML instead of Markdown");
+                if (text.toLowerCase().includes("<!doctype html>")) {
+                    throw new Error("Received HTML instead of Markdown");
+                }
 
                 setContent(text);
                 extractHeadings(text);
@@ -52,12 +61,15 @@ export default function MarkdownPage() {
             }
         };
 
-        fetchMarkdown();
-    }, [topicId]);
+        if (chapters.length > 0) {
+            fetchMarkdown();
+        }
+    }, [topicId, chapters]);
 
-    const currentIndex = topics.findIndex((topic) => topic.id === topicId);
-    const prevTopic = currentIndex > 0 ? topics[currentIndex - 1] : null;
-    const nextTopic = currentIndex < topics.length - 1 ? topics[currentIndex + 1] : null;
+    const allTopics = chapters.flatMap(chapter => chapter.topics);
+    const currentIndex = allTopics.findIndex(topic => topic.id === topicId);
+    const prevTopic = currentIndex > 0 ? allTopics[currentIndex - 1] : null;
+    const nextTopic = currentIndex < allTopics.length - 1 ? allTopics[currentIndex + 1] : null;
 
     const extractHeadings = (markdown) => {
         const lines = markdown.split("\n");
@@ -82,31 +94,11 @@ export default function MarkdownPage() {
     return (
         <div className="container markdownMain">
             <div className="markdownContainer">
-                {/* Markdown Content */}
                 <div className="flex flex-1 flex-col markdownContentContainer">
                     <div className="prose prose-lg dark:prose-invert markdownContent">
                         {loading ? (
                             <div className="space-y-6 animate-pulse">
-                                <div className="h-8 bg-[#3b3b3b] rounded w-1/2"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-2 bg-[#3b3b3b] rounded w-5/6"></div>
-                                <div className="h-2 bg-[#3b3b3b] rounded w-3/4"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-2/3"></div>
-                                <br />
-                                <div className="h-8 bg-[#3b3b3b] rounded w-1/2"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-5/6"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-3/4"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-2/3"></div>
-                                <br />
-                                <div className="h-8 bg-[#3b3b3b] rounded w-1/2"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-5/6"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-3/4"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-full"></div>
-                                <div className="h-4 bg-[#3b3b3b] rounded w-2/3"></div>
+                                {/* Skeleton content */}
                             </div>
                         ) : (
                             <ReactMarkdown
@@ -123,6 +115,27 @@ export default function MarkdownPage() {
                                     },
                                     img: ({ src, alt }) => {
                                         if (!src) return null;
+
+                                        // Handle both possible folder names (photos/ or assets/)
+                                        if (src.startsWith("photos/") || src.startsWith("photo/") || src.startsWith("photows/") || src.startsWith("phhotos/")
+                                            || src.startsWith("phOotos/") || src.startsWith("photows/")) {
+                                            const currentTopic = chapters
+                                                .flatMap(ch => ch.topics)
+                                                .find(t => t.id === topicId);
+
+                                            if (currentTopic) {
+                                                // Extract chapter folder name from the topic's path
+                                                const chapterFolder = currentTopic.path.split('/')[0];
+                                                // Encode for URL but keep forward slashes
+                                                const encodedPath = chapterFolder.replace(/ /g, '%20');
+                                                return <img src={`/docs/${encodedPath}/${src}`}
+                                                    alt={alt || ""}
+                                                    loading="lazy"
+                                                    className="max-w-full h-auto my-4 border rounded-lg" />;
+                                            }
+                                        }
+
+                                        // Fallback for absolute paths or external images
                                         return <img src={src} alt={alt || ""} loading="lazy" />;
                                     }
                                 }}
@@ -132,7 +145,6 @@ export default function MarkdownPage() {
                         )}
                     </div>
 
-                    {/* Navigation Buttons (only if content is loaded successfully) */}
                     {!loading && (
                         <nav className="paginationButtons mt-4 grid gap-2 grid-cols-2">
                             {prevTopic ? (
@@ -162,16 +174,15 @@ export default function MarkdownPage() {
                     )}
                 </div>
 
-                {/* Table of Contents */}
                 {!loading && headings.length > 0 && (
                     <div className="markdownTableContainer">
                         <div className="markdownTable">
                             <ul>
                                 {headings.map((heading) => (
-                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm `}>
+                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
                                         <button
                                             onClick={() => handleScrollTo(heading.id)}
-                                            className="text-left w-full hover:text-blue-500 focus:outline-none "
+                                            className="text-left w-full hover:text-blue-500 focus:outline-none"
                                         >
                                             {heading.text}
                                         </button>
@@ -181,7 +192,6 @@ export default function MarkdownPage() {
                         </div>
                     </div>
                 )}
-
             </div>
         </div>
     );
