@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 
 const Bio = () => {
     const [editing, setEditing] = useState(false);
-    const [bio, setBio] = useState(
-        "🚀 Ahmed Omar | 🖥️ Junior Web Developer @ Oswald Technologies\n" +
-        "Hi! I'm Ahmed Omar, a junior web developer passionate about coding. 💡\n" +
-        "I thrive on solving complex problems and staying ahead in the ever-evolving tech world! 🌍"
-    );
+    const [bio, setBio] = useState("");
 
 
     const handleEdit = () => setEditing(!editing);
@@ -19,7 +15,11 @@ const Bio = () => {
 
             </div>
             {editing ? (
-                <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+                <textarea
+                    className="w-full bg-[#252525] p-3 rounded-lg text-white"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                />
 
             ) : (
                 <p>{bio}</p>

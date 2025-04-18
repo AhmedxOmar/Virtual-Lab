@@ -60,14 +60,7 @@ export default function Sidebar() {
                                 )}
                             </li>
                         ))}
-                        {/* <li>
-                            <Link
-                                to="/quiz"
-                                className="block mt-4 p-2 rounded-lg hover:bg-[#333] transition"
-                            >
-                                Quiz
-                            </Link>
-                        </li> */}
+
                     </ul>
                 </nav>
             </div>

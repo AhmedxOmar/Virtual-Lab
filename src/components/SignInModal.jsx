@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setCredentials } from '../features/auth/authSlice';
 
 
 const SignInModal = ({ onClose, switchToSignUp }) => {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -40,17 +43,17 @@ const SignInModal = ({ onClose, switchToSignUp }) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log('Form Submitted successfully', userData);
-            setUserData({
-                email: "",
-                password: "",
-            });
-            localStorage.setItem("user", JSON.stringify(userData));
-            navigate("/profile");
-            onClose();
+            try {
+                const response = await authAPI.login(userData);
+                dispatch(setCredentials({ user: response.user, token: response.token }));
+                onClose();
+                navigate('/profile');
+            } catch (error) {
+                console.log("Error")
+            }
         }
 
     }

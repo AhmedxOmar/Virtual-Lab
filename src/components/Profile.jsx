@@ -5,43 +5,48 @@ import PersonalInfo from './PersonalInfo';
 import Bio from './Bio';
 import UserAchievements from './UserAchievements';
 import PasswordTab from './PasswordTab';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
-    const [user, setUser] = useState(null);
+    const { user } = useSelector((state) => state.auth);
 
     const [activeTab, setActiveTab] = useState("overview");
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
-
     if (!user) {
-        return <p>Loading</p>
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-white text-xl">Loading user profile...</p>
+            </div>
+        )
     }
 
     return (
         <div className='profile-container flex gap-12 py-[5rem]'>
-            <ProfileSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+            <ProfileSidebar
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+            />
+
             {activeTab === "overview" && (
-                <div>
-                    <ProfileHeader />
-                    <hr className='text-[#98989840] mt-[4rem] mb-[2rem]' />
-                    <PersonalInfo />
+                <div className="flex-1 pr-8">
+                    <ProfileHeader user={user} />
+                    <hr className='border-[#98989840] mt-[4rem] mb-[2rem]' />
+                    <PersonalInfo user={user} />
                     <Bio />
                 </div>
             )}
+
             {activeTab === "achievements" && (
-                <UserAchievements />
-            )}
-            {activeTab === "password" && (
-                <PasswordTab />
+                <div className="flex-1 pr-8">
+                    <UserAchievements />
+                </div>
             )}
 
-            {/* <h1>Welcome, {user.firstName} {user.lastName}</h1>
-            <p>Email: {user.email}</p> */}
+            {activeTab === "password" && (
+                <div className="flex-1 pr-8">
+                    <PasswordTab />
+                </div>
+            )}
         </div>
     )
 }

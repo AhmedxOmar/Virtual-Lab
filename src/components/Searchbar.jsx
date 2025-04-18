@@ -27,7 +27,9 @@ const Searchbar = () => {
             return;
         }
 
-        const filtered = topics.filter((topic) =>
+        const allTopics = topics.flatMap(chapter => chapter.topics); // 👈 flatten topics from chapters
+
+        const filtered = allTopics.filter((topic) =>
             topic.title.toLowerCase().includes(query.toLowerCase())
         );
 

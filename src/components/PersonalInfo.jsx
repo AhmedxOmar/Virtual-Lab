@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../features/auth/authSlice";
 
 const PersonalInfo = () => {
+    const dispatch = useDispatch();
+
     const [editing, setEditing] = useState(false);
     const [errors, setErrors] = useState({}); // To store validation errors
 
@@ -40,11 +44,7 @@ const PersonalInfo = () => {
 
     const handleEdit = () => {
         if (editing) {
-            const isValid = Object.keys(userInfo).every((key) =>
-                validateInput(key, userInfo[key])
-            );
-
-            if (!isValid) return; // Prevent saving if errors exist
+            dispatch(updateUser(userInfo));
         }
         setEditing(!editing);
     };
