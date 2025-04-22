@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import {
+    FiChevronLeft,
+    FiChevronRight,
+    FiChevronUp,
+    FiChevronDown,
+} from "react-icons/fi";
 
 export default function MarkdownPage() {
     const { topicId } = useParams();
@@ -142,6 +148,7 @@ export default function MarkdownPage() {
                             >
                                 {content}
                             </ReactMarkdown>
+
                         )}
                     </div>
 
