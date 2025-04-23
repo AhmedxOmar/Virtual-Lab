@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @import "tailwindcss";
 
@@ -10,67 +10,113 @@
   max-width: 1140px;
 }
 
-.inter-thin {
-  font-family: "Inter", sans-serif;
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
   font-weight: 100;
+  font-style: normal;
 }
 
-.inter-extra-light {
-  font-family: "Inter", sans-serif;
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
   font-weight: 200;
+  font-style: normal;
 }
 
-.inter-light {
-  font-family: "Inter", sans-serif;
+.poppins-light {
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
+  font-style: normal;
 }
 
-.inter-regular {
-  font-family: "Inter", sans-serif;
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
+  font-style: normal;
 }
 
-.inter-medium {
-  font-family: "Inter", sans-serif;
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
+  font-style: normal;
 }
 
-.inter-semi-bold {
-  font-family: "Inter", sans-serif;
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
+  font-style: normal;
 }
 
-.inter-bold {
-  font-family: "Inter", sans-serif;
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
+  font-style: normal;
 }
 
-.inter-extra-bold {
-  font-family: "Inter", sans-serif;
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
   font-weight: 800;
+  font-style: normal;
 }
 
-.inter-black {
-  font-family: "Inter", sans-serif;
+.poppins-black {
+  font-family: "Poppins", sans-serif;
   font-weight: 900;
+  font-style: normal;
 }
 
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
 
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
 
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
 
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
 
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
 
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
 
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
 
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
 
-
-
-
-
-
-
-
-
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
 
 
 
@@ -94,6 +140,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {
@@ -108,7 +155,6 @@ body {
 }
 
 button {
-  border-radius: 8px;
   /*   border: 1px solid transparent;
  */
   font-weight: 500;
@@ -117,9 +163,6 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
-}
 
 /* button:focus,
 button:focus-visible {
@@ -266,17 +309,40 @@ button:focus-visible {
 
 
 
-
-
-
 .markdownSidebar {
-  clip-path: inset(0);
-  display: block;
-  margin-top: calc(83px * -1);
-  transition: width 200ms ease;
-  width: 300px;
+  transition: width 900ms ease;
   will-change: width;
 }
+
+@media (min-width: 997px) {
+  .markdownSidebar {
+    clip-path: inset(0);
+    display: block;
+    transition: width 900ms ease;
+    will-change: width;
+  }
+}
+
+@media (min-width: 997px) {
+  .sidebarViewport {
+    height: 100%;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
+
+  }
+}
+
+@media (min-width: 997px) {
+  .sidebarContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+
+
 
 .sidebar {
   display: flex;
@@ -290,13 +356,22 @@ button:focus-visible {
   border-right: 1px solid rgb(32, 32, 32);
 }
 
-
+.sidebar nav ul li span {
+  overflow: hidden;
+  white-space: pre-wrap !important;
+  text-overflow: ellipsis;
+}
 
 .sidebar nav {
   scrollbar-width: thin;
   overflow-x: hidden;
   padding: 0.5rem 0 0.5rem 0.5rem;
 
+}
+
+.sidebarContainer nav {
+  overflow-y: auto !important;
+  scrollbar-width: none;
 }
 
 @media(min-width: 997px) {
@@ -310,11 +385,16 @@ button:focus-visible {
 
 @media(min-width: 997px) {
   .sidebar nav {
-    padding: 0.5rem 0 0.5rem 0.5rem;
-    scrollbar-gutter: stable;
     flex-grow: 1;
+    padding: 0.5rem;
   }
 }
+
+.sidebar nav ul {
+  margin: 0;
+  padding-left: 0;
+}
+
 
 .sidebar nav ul li {
   margin-bottom: 5px;
@@ -332,8 +412,16 @@ button:focus-visible {
 
 
 .docsLayoutContainer {
+  padding: 30px 0;
   display: flex;
-  width: 100%;
+}
+
+@media(min-width: 997px) {
+  .docsLayoutContainer {
+    flex-grow: 1;
+    width: -webkit-fill-available;
+
+  }
 }
 
 .markdownMain {
@@ -341,6 +429,7 @@ button:focus-visible {
   width: 100%;
   padding-bottom: 2rem;
   padding-top: 1rem;
+  margin: 0 auto;
 }
 
 @media(min-width: 1440px) {
@@ -350,12 +439,7 @@ button:focus-visible {
 }
 
 
-@media(min-width: 997px) {
-  .docsLayoutContainer {
-    flex-grow: 1;
-    max-width: calc(100% - 300px);
-  }
-}
+
 
 
 
@@ -472,8 +556,16 @@ button:focus-visible {
   border-color: #5865F2;
 }
 
+.markdownContent {
+  width: 100%;
+}
+
 pre {
-  width: max-content;
+  width: 100%;
+}
+
+.prose {
+  max-width: 90ch;
 }
 
 

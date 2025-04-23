@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import PythonExecuter from "../components/PythonExecuter";
+
 import {
     FiChevronLeft,
     FiChevronRight,
@@ -108,6 +112,8 @@ export default function MarkdownPage() {
                             </div>
                         ) : (
                             <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
                                 components={{
                                     h1: ({ node, children }) => {
                                         const text = String(children).trim();
@@ -143,7 +149,38 @@ export default function MarkdownPage() {
 
                                         // Fallback for absolute paths or external images
                                         return <img src={src} alt={alt || ""} loading="lazy" />;
-                                    }
+                                    },
+                                    video: ({ src, ...props }) => {
+                                        if (!src) return null;
+
+                                        const currentTopic = chapters.flatMap(ch => ch.topics).find(t => t.id === topicId);
+                                        if (currentTopic) {
+                                            const chapterFolder = currentTopic.path.split('/')[0];
+                                            const encodedPath = chapterFolder.replace(/ /g, '%20');
+
+                                            return (
+                                                <video src={`/docs/${encodedPath}/${src}`} controls className="my-4 max-w-full rounded-lg border" {...props} />
+                                            );
+                                        }
+                                        <video src={src} controls className="my-4 max-w-full rounded-lg border" {...props} />
+                                    },
+                                    iframe: ({ node, ...props }) => (
+                                        <div className="my-4 aspect-video max-w-full rounded-lg overflow-hidden border">
+                                            <iframe {...props} className="w-full h-full" allowFullScreen />
+                                        </div>
+                                    ),
+                                    /* code({ inline, className, children, ...props }) {
+                                        const language = className?.replace("language-", "");
+
+                                        if (!inline && language === "python") {
+                                            return <PythonExecuter code={String(children).trim()} />
+                                        }
+                                        return (
+                                            <code className={className} {...props}>
+                                                {children}
+                                            </code>
+                                        );
+                                    } */
                                 }}
                             >
                                 {content}
@@ -185,8 +222,8 @@ export default function MarkdownPage() {
                     <div className="markdownTableContainer">
                         <div className="markdownTable">
                             <ul>
-                                {headings.map((heading) => (
-                                    <li key={heading.id} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
+                                {headings.map((heading, index) => (
+                                    <li key={`${heading.id}-${index}`} className={`ml-${heading.level === 2 ? "4 pl-2" : "2"} py-1 text-sm`}>
                                         <button
                                             onClick={() => handleScrollTo(heading.id)}
                                             className="text-left w-full hover:text-blue-500 focus:outline-none"

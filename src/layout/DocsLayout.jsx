@@ -8,7 +8,7 @@ export default function DocsLayout() {
             <Sidebar />
 
             {/* Main Content - Scrolls Independently */}
-            <main className="docsLayoutContainer overflow-auto mb-5">
+            <main className="docsLayoutContainer overflow-auto -none mb-5 ">
                 <Outlet />
             </main>
         </div>
