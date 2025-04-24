@@ -153,34 +153,71 @@ export default function MarkdownPage() {
                                     video: ({ src, ...props }) => {
                                         if (!src) return null;
 
-                                        const currentTopic = chapters.flatMap(ch => ch.topics).find(t => t.id === topicId);
+                                        const currentTopic = chapters
+                                            .flatMap(ch => ch.topics)
+                                            .find(t => t.id === topicId);
+
                                         if (currentTopic) {
                                             const chapterFolder = currentTopic.path.split('/')[0];
                                             const encodedPath = chapterFolder.replace(/ /g, '%20');
-
                                             return (
-                                                <video src={`/docs/${encodedPath}/${src}`} controls className="my-4 max-w-full rounded-lg border" {...props} />
+                                                <video
+                                                    src={`/docs/${encodedPath}/${src}`}
+                                                    controls
+                                                    className="my-4 max-w-full rounded-lg border"
+                                                    {...props}
+                                                />
                                             );
                                         }
-                                        <video src={src} controls className="my-4 max-w-full rounded-lg border" {...props} />
+
+                                        // fallback
+                                        return <video src={src} controls className="my-4 max-w-full rounded-lg border" {...props} />;
                                     },
                                     iframe: ({ node, ...props }) => (
                                         <div className="my-4 aspect-video max-w-full rounded-lg overflow-hidden border">
                                             <iframe {...props} className="w-full h-full" allowFullScreen />
                                         </div>
                                     ),
-                                    /* code({ inline, className, children, ...props }) {
+                                    code({ className, children }) {
                                         const language = className?.replace("language-", "");
 
-                                        if (!inline && language === "python") {
-                                            return <PythonExecuter code={String(children).trim()} />
+                                        if (language === "python") {
+                                            const codeString = String(children).trim();
+                                            const encodedCode = encodeURIComponent(codeString);
+
+                                            return (
+                                                <div className="relative mb-4">
+                                                    <pre>
+                                                        <code className={className}>{children}</code>
+                                                    </pre>
+                                                    <div className="mt-2">
+                                                        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                                                            onClick={() => navigate(`/terminal?code=${encodedCode}`)}>Try it yourself</button>
+                                                    </div>
+                                                </div>
+                                            );
                                         }
-                                        return (
-                                            <code className={className} {...props}>
-                                                {children}
-                                            </code>
-                                        );
-                                    } */
+                                        if (language === "matlab") {
+                                            return (
+                                                <div className="relative mb-4">
+                                                    <pre><code className={className}>{children}</code></pre>
+                                                    <div className="mt-2">
+                                                        <a
+                                                            href="https://www.mathworks.com/products/matlab-online.html"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                                        >
+                                                            Try on MATLAB Online
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+
+                                        return <pre><code className={className}>{children}</code></pre>
+
+                                    }
                                 }}
                             >
                                 {content}
