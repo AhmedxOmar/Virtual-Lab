@@ -34,7 +34,7 @@ export default function Terminal() {
         loadPyodideAndPackages();
     }, []);
 
-    const handleFileChange = async (e) => {
+    const handleFileChange = async (e, filename) => {
         const file = e.target.files[0];
         if (!file || !pyodide) return;
 
@@ -42,14 +42,16 @@ export default function Terminal() {
         reader.onload = async (event) => {
             const arrayBuffer = event.target.result;
             const byteArray = new Uint8Array(arrayBuffer);
+            pyodide.FS.writeFile(filename, byteArray);
 
-            // Write to Pyodide's filesystem with the expected filename
-            pyodide.FS.writeFile("image.jpg", byteArray);
-            setImage(URL.createObjectURL(file));
-            setOutput("Image uploaded as 'image.jpg'. Ready to process.");
+            if (filename === "scene.png") setImage(URL.createObjectURL(file));
+            if (filename === "template.png") setResult(URL.createObjectURL(file));
+
+            setOutput(`${filename} uploaded successfully.`);
         };
         reader.readAsArrayBuffer(file);
     };
+
 
     const runCode = async () => {
         if (!pyodide) return;
@@ -86,9 +88,17 @@ export default function Terminal() {
                 <input
                     type="file"
                     accept="image/*"
-                    onChange={handleFileChange}
+                    onChange={(e) => handleFileChange(e, "scene.png")}
                     className="mt-2 block"
                 />
+                <label>Upload Template Image:</label>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileChange(e, "template.png")}
+                    className="mt-2 block"
+                />
+
 
                 <button
                     onClick={runCode}

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import PythonExecuter from "../components/PythonExecuter";
 
 import {
     FiChevronLeft,
@@ -83,13 +82,26 @@ export default function MarkdownPage() {
 
     const extractHeadings = (markdown) => {
         const lines = markdown.split("\n");
-        const extractedHeadings = lines
-            .filter((line) => line.match(/^##?\s/))
-            .map((line) => {
+        const extractedHeadings = [];
+        let insideCodeBlock = false;
+
+        for (let line of lines) {
+            // Toggle code block state
+            if (line.trim().startsWith("```")) {
+                insideCodeBlock = !insideCodeBlock;
+                continue;
+            }
+
+            if (!insideCodeBlock && /^#{1,2}\s/.test(line)) {
                 const text = line.replace(/^#+\s/, "").trim();
                 const id = text.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, "-");
-                return { id, text, level: line.startsWith("##") ? 2 : 1 };
-            });
+                extractedHeadings.push({
+                    id,
+                    text,
+                    level: line.startsWith("##") ? 2 : 1,
+                });
+            }
+        }
 
         setHeadings(extractedHeadings);
     };
@@ -107,8 +119,11 @@ export default function MarkdownPage() {
                 <div className="flex flex-1 flex-col markdownContentContainer">
                     <div className="prose prose-lg dark:prose-invert markdownContent">
                         {loading ? (
+                            // Replace the empty skeleton with:
                             <div className="space-y-6 animate-pulse">
-                                {/* Skeleton content */}
+                                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                                <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
                             </div>
                         ) : (
                             <ReactMarkdown
@@ -192,7 +207,11 @@ export default function MarkdownPage() {
                                                     </pre>
                                                     <div className="mt-2">
                                                         <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-purple-700"
-                                                            onClick={() => navigate(`/terminal?code=${encodedCode}`)}>Try it yourself</button>
+                                                            onClick={() => navigate(`/terminal-page?code=${encodedCode}`, { state: { fromLesson: true } })}>Try it yourself</button>
+                                                            // Add this under the "Try it yourself" button:
+                                                        <div className="text-sm mt-1 text-gray-600 dark:text-gray-400">
+                                                            Note: You'll be able to upload required files in the terminal
+                                                        </div>
                                                     </div>
                                                 </div>
                                             );
@@ -203,9 +222,10 @@ export default function MarkdownPage() {
                                                     <pre><code className={className}>{children}</code></pre>
                                                     <div className="mt-2">
                                                         <a
+
                                                             href="https://www.mathworks.com/products/matlab-online.html"
                                                             target="_blank"
-                                                            rel="noopener noreferrer"
+                                                            rel="noopener noreferrer nofollow"
                                                             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                                                         >
                                                             Try on MATLAB Online
@@ -264,6 +284,8 @@ export default function MarkdownPage() {
                                         <button
                                             onClick={() => handleScrollTo(heading.id)}
                                             className="text-left w-full hover:text-blue-500 focus:outline-none"
+                                            aria-label={`Jump to ${heading.text}`}
+
                                         >
                                             {heading.text}
                                         </button>

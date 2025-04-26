@@ -9,6 +9,7 @@ import About from "./pages/About";
 import QuizListPage from "./pages/QuizListPage";
 import QuizPage from "./pages/QuizPage";
 import Terminal from "./pages/Terminal";
+import TerminalPage from "./pages/TerminalPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/quizzes/:chapterId" element={<QuizPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/terminal" element={<Terminal />} />
+        <Route path="/terminal-page" element={<TerminalPage />} />
       </Routes>
     </Layout>
   );
