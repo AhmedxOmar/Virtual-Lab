@@ -657,6 +657,7 @@ pre {
   display: inline-block;
 }
 
+
 .nexusItem {
   opacity: 0.4;
 }
@@ -840,7 +841,7 @@ pre {
 
 .nexus__scrollAnchor {
   position: absolute;
-  height: 100vh;
+  height: 40vh;
 }
 
 
@@ -849,24 +850,14 @@ pre {
   top: 0;
 }
 
-.nexus__scrollAnchor.anchor1 {
-  top: calc(100vh * 1);
-}
 
-.nexus__scrollAnchor.anchor2 {
-  top: calc(100vh * 2);
-}
-
-.nexus__scrollAnchor.anchor3 {
-  top: calc(100vh * 3);
-}
 
 
 .nexusSticky {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 4rem;
   position: sticky;
   top: 0;
@@ -876,6 +867,7 @@ pre {
 
 
 .nexusTop {
+  text-align: left;
   align-items: flex-start;
   display: flex;
   flex: 0 0 auto;

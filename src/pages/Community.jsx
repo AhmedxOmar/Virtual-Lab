@@ -1,5 +1,6 @@
 import React from "react";
 import community_screenshot from "../assets/community-screenshot.jpg"
+import community_img from "../assets/community-img.png"
 
 const Community = () => {
     return (
@@ -23,8 +24,8 @@ const Community = () => {
                             Join Our Community
                         </a>
                     </div>
-                    <div className="max-w-md">
-                        0
+                    <div className="max-w-2xl">
+                        <img src={community_img} alt="" />
                     </div>
                 </div>
             </section>

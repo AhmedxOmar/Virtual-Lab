@@ -6,6 +6,7 @@ import { RxCode } from "react-icons/rx";
 import { LuPresentation } from "react-icons/lu";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { AiFillExperiment } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 const teamMembers = [
     {
@@ -59,7 +60,7 @@ const About = () => {
                         Empowering learners to explore the world of Image Processing & Computer Vision.
                     </p>
                     <div className="flex gap-4 items-end">
-                        <button className="bg-[#5865F2] text-white px-6 py-3 rounded-xl hover:bg-blue-700">Start Learning</button>
+                        <Link to="/docs/chapter_1_1_what_is_image_processing" className="bg-[#5865F2] text-white px-6 py-3 rounded-xl hover:bg-blue-700">Start Learning</Link>
                     </div>
                 </div>
                 <div className="flex-1">

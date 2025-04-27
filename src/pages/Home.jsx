@@ -66,7 +66,7 @@ const Home = () => {
     return (
         <div className="text-center relative h-full w-full">
             <Hero />
-            <div className="flex items-center my-[5rem] aboutSection mx-[8rem]">
+            <div id="siteIdentity" className="flex items-center my-[5rem] aboutSection mx-[8rem]">
                 <div className="flex flex-col text-left  gap-2 aboutContent mr-10">
                     <img src={logo} width={100} alt="" />
                     <div>
