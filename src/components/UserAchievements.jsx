@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { } from 'react';
 import { FaArrowRight } from 'react-icons/fa'
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useSelector } from 'react-redux';
+
+
+import { FiCheckCircle } from 'react-icons/fi';
 
 import rookieBadge from '../assets/rookie-badge.jpg'
 
@@ -25,7 +28,8 @@ const quizzes = [
 const UserAchievements = () => {
 
     const [animatedScores, setAnimatedScores] = useState({});
-
+    const [chapters, setChapters] = useState([]);
+    const { user, topicProgress } = useSelector((state) => state.auth);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -38,15 +42,20 @@ const UserAchievements = () => {
         return () => clearTimeout(timeout);
     }, []);
 
+    const completedTopicsCount = Object.keys(topicProgress).filter(id => topicProgress[id]).length;
+
+
     return (
         <div className='flex flex-col py-4'>
             <div className='userAchievements bg-[#1a1a1a] p-6 w-200  text-white flex h-[max-content] items-center gap-[1rem] justify-between rounded-[20px]'>
                 <div className="learnProgressSection w-[80%]  p-6 rounded-lg shadow-lg">
                     <h2 className="text-lg font-semibold">Your Achievements</h2>
-                    <p className='text-sm mt-1 text-gray-400'>Chapter 2 - 65% to next chapter</p>
+                    <p className='text-sm mt-1 text-gray-400'>Completed {completedTopicsCount} topics across {chapters.length} chapters</p>
+
                     <div className='relative w-[80%] bg-gray-700 h-[20px] rounded-full mt-2'>
                         <div className='absolute top-0 left-0 h-[20px] bg-purple-500 rounded-full' style={{ width: "65%" }}></div>
                     </div>
+
                     <p className='mt-3'>
                         You're <span className='font-bold text-yellow-400'>Rookie</span> now
                     </p>
