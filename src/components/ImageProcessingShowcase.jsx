@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import showCaseImg from "../assets/showCase-input.jpg";
 import showCase from "../assets/default-avatar.png";
-
+import snippetImg from "../assets/code snippets.png"
 const ImageProcessingShowcase = () => {
     const containerRef = useRef(null);
     const [constraints, setConstraints] = useState({ left: 0, right: 0 });
@@ -28,16 +28,16 @@ const ImageProcessingShowcase = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <img
-                        src="/images/code-snippet.png"
+                        src={snippetImg}
                         alt="Code Snippet"
-                        className="rounded-2xl shadow-lg border border-[#3a3a3a]"
+                        className="rounded-2xl scale-[1.2]"
                     />
                 </motion.div>
 
                 {/* Image Reveal Slider */}
                 <div
                     ref={containerRef}
-                    className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg border border-[#3a3a3a]"
+                    className="relative w-[300px] h-[300px] rounded-2xl overflow-hidden shadow-lg border border-[#3a3a3a] justify-self-end"
                 >
                     {/* Bottom Image (Original) */}
                     <img
