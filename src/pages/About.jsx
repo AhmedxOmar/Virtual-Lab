@@ -7,7 +7,45 @@ import { LuPresentation } from "react-icons/lu";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { AiFillExperiment } from "react-icons/ai";
 
-
+const teamMembers = [
+    {
+        name: "Ahmed Omar",
+        role: "Frontend Team",
+    },
+    {
+        name: "Martin Maged",
+        role: "Frontend Team",
+    },
+    {
+        name: "Mohamed El-Sayed",
+        role: "Frontend Team",
+    }
+    ,
+    {
+        name: "Norhan Gamal",
+        role: "Backend Team",
+    }
+    ,
+    {
+        name: "Youssef Ahmed",
+        role: "Backend Team",
+    }
+    ,
+    {
+        name: "Omar Samir",
+        role: "Material Presenting",
+    }
+    ,
+    {
+        name: "Mahmoud Ramadan",
+        role: "Material Presenting",
+    }
+    ,
+    {
+        name: "Aya Pasha",
+        role: "Backend Team",
+    }
+];
 
 const About = () => {
     return (
@@ -66,14 +104,14 @@ const About = () => {
             </div>
 
             {/* Team Section */}
-            <div id="team" className="mb-24  text-white">
+            <div id="team" className="mb-24 text-white">
                 <h2 className="text-3xl font-bold mb-8">Meet the Team</h2>
                 <div className="grid grid-cols-4 gap-6">
-                    {[1, 2, 3, 4].map((id) => (
-                        <div key={id} className="bg-[#1e1f22] p-6 rounded-xl text-center">
-                            <div className="w-24 h-24 mx-auto rounded-full bg-gray-200 mb-4" />
-                            <h3 className="text-lg font-semibold">Member Name</h3>
-                            <p className="text-gray-500">Title / Role</p>
+                    {teamMembers.map((member, idx) => (
+                        <div key={idx} className="bg-[#1e1f22] p-6 rounded-xl text-center">
+
+                            <h3 className="text-lg font-semibold">{member.name}</h3>
+                            <p className="text-gray-500">{member.role}</p>
                         </div>
                     ))}
                 </div>
@@ -93,14 +131,14 @@ const About = () => {
             </div> */}
 
             {/* Call to Action */}
-            <div className="text-center bg-[#1e1f22] text-white p-12 rounded-xl">
+            {/* <div className="text-center bg-[#1e1f22] text-white p-12 rounded-xl">
                 <h2 className="text-3xl font-bold mb-4">Join the Mission</h2>
                 <p className="text-white mb-6">Become a contributor or sign up for our newsletter to stay updated.</p>
                 <button className="bg-[#5865F2] text-white px-8 py-3 rounded-xl hover:bg-blue-700">Get Involved</button>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
 
-            </div>
+            </div> */}
 
         </div>
     );

@@ -3,6 +3,65 @@ import imageDefinition from "../assets/homepage-defintion.jpg"
 import logo from "../assets/final-logo.png"
 import Hero from "../components/Hero"
 import ImageApplications from "../components/ImageApplications"
+import ImageTechniques from "../components/ImageTechniques";
+import ImageProcessingShowcase from "../components/ImageProcessingShowcase";
+
+
+
+const techniques = [
+    {
+        title: "Image Acquisition",
+        description: "Capturing images from the real world into digital form.",
+        icon: "📷",
+    },
+    {
+        title: "Image Filtering & Enhancement",
+        description: "Improving image quality by reducing noise and enhancing details.",
+        icon: "✨",
+    },
+    {
+        title: "Image Restoration",
+        description: "Reconstructing corrupted or damaged images.",
+        icon: "🛠️",
+    },
+    {
+        title: "Color Image Processing",
+        description: "Handling and analyzing images in color spaces.",
+        icon: "🎨",
+    },
+    {
+        title: "Wavelets and Other Image Transforms",
+        description: "Transforming images for better analysis and compression.",
+        icon: "🔄",
+    },
+    {
+        title: "Compression and Watermarking",
+        description: "Reducing file size and embedding copyright marks.",
+        icon: "💾",
+    },
+    {
+        title: "Morphological Processing",
+        description: "Analyzing shapes and structures in binary images.",
+        icon: "🧩",
+    },
+    {
+        title: "Segmentation",
+        description: "Dividing an image into meaningful parts.",
+        icon: "✂️",
+    },
+    {
+        title: "Feature Extraction",
+        description: "Detecting important patterns or structures from images.",
+        icon: "🔍",
+    },
+    {
+        title: "Image Pattern Classification",
+        description: "Categorizing images based on their features.",
+        icon: "🧠",
+    },
+];
+
+
 const Home = () => {
     return (
         <div className="text-center relative h-full w-full">
@@ -25,6 +84,9 @@ const Home = () => {
 
             </div>
             <ImageApplications />
+            <ImageTechniques />
+            <ImageProcessingShowcase />
+
         </div>
     )
 }

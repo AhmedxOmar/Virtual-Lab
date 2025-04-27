@@ -41,6 +41,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
+    "swiper": "^11.2.6",
     "tailwindcss": "^4.1.0"
   },
   "devDependencies": {
