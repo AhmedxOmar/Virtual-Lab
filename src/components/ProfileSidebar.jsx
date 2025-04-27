@@ -17,9 +17,6 @@ const ProfileSidebar = ({ activeTab, setActiveTab }) => {
                 <hr className='my-3 text-[#272727]' />
 
                 <li className='sidebarLabel mb-2 '>Settings</li>
-                <li className={`sidebarTab flex gap-4 p-2 items-center inter-bold ${activeTab === "preferences" ? "active" : ""}`} onClick={() => setActiveTab("preferences")}>
-                    <FaCog size={15} className='sidebarIcon' /> Preferences
-                </li>
                 <li className={`sidebarTab flex gap-4 p-2 items-center inter-bold ${activeTab === "password" ? "active" : ""}`} onClick={() => setActiveTab("password")}>
                     <FaLock size={15} className='sidebarIcon' /> Password
                 </li>
