@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { markTopicCompleted } from '../features/auth/authSlice'
 
 import {
     FiChevronLeft,
@@ -10,6 +11,7 @@ import {
     FiChevronUp,
     FiChevronDown,
 } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MarkdownPage() {
     const { topicId } = useParams();
@@ -18,6 +20,10 @@ export default function MarkdownPage() {
     const [headings, setHeadings] = useState([]);
     const [chapters, setChapters] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+
 
     useEffect(() => {
         const fetchChapters = async () => {
@@ -208,7 +214,6 @@ export default function MarkdownPage() {
                                                     <div className="mt-2">
                                                         <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-purple-700"
                                                             onClick={() => navigate(`/terminal-page?code=${encodedCode}`, { state: { fromLesson: true } })}>Try it yourself</button>
-                                                            // Add this under the "Try it yourself" button:
                                                         <div className="text-sm mt-1 text-gray-600 dark:text-gray-400">
                                                             Note: You'll be able to upload required files in the terminal
                                                         </div>
@@ -262,7 +267,12 @@ export default function MarkdownPage() {
 
                             {nextTopic ? (
                                 <a
-                                    onClick={() => navigate(`/docs/${nextTopic.id}`)}
+                                    onClick={() => {
+                                        if (user) {
+                                            dispatch(markTopicCompleted({ topicId }));
+                                        }
+                                        navigate(`/docs/${nextTopic.id}`)
+                                    }}
                                     className="border border-[#606770] hover:border-[#845097] rounded-[0.4rem] text-right cursor-pointer paginationNavLink paginationNavLinkNext p-4"
                                 >
                                     <div>Next</div>

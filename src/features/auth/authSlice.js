@@ -6,7 +6,10 @@ const initialState = {
     token: localStorage.getItem('token') || null,
     quizProgress: JSON.parse(localStorage.getItem('quizProgress')) || {},
     chapterProgress: JSON.parse(localStorage.getItem('chapterProgress')) || {},
+    topicProgress: JSON.parse(localStorage.getItem('topicProgress')) || {}, // Add this line
 };
+
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -38,15 +41,24 @@ const authSlice = createSlice({
             };
             localStorage.setItem('chapterProgress', JSON.stringify(state.chapterProgress));
         },
+        markTopicCompleted: (state, action) => {
+            const { topicId } = action.payload;
+            if (state.user) {
+                state.topicProgress[topicId] = true;
+                localStorage.setItem('topicProgress', JSON.stringify(state.topicProgress));
+            }
+        },
         logout: (state) => {
             state.user = null;
             state.token = null;
             state.quizProgress = {};
             state.chapterProgress = {};
+            state.topicProgress = {}; // Add this line
             localStorage.removeItem('user');
             localStorage.removeItem('token');
             localStorage.removeItem('quizProgress');
             localStorage.removeItem('chapterProgress');
+            localStorage.removeItem('topicProgress'); // Add this line
         },
     },
 });
@@ -56,7 +68,8 @@ export const {
     logout,
     updateUser,
     updateQuizScore,
-    updateChapterProgress
+    updateChapterProgress,
+    markTopicCompleted,
 } = authSlice.actions;
 
 export default authSlice.reducer;

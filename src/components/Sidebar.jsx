@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiChevronDown, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import { FiChevronDown, FiChevronRight, FiCircle, FiCheckCircle } from "react-icons/fi";
 import { TbLayoutSidebarRightCollapse, TbLayoutSidebarLeftCollapse } from "react-icons/tb";
-
-import { useNavigate } from "react-router-dom"; // 👈 add this at the top
-
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
     const [chapters, setChapters] = useState([]);
     const [expanded, setExpanded] = useState({});
     const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
+    const { user } = useSelector((state) => state.auth);
+    const { topicProgress } = useSelector((state) => state.auth);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -34,32 +35,33 @@ export default function Sidebar() {
         const chapterName = chapterObj.chapter;
 
         if (sidebarCollapsed) {
-            // 1. Expand the sidebar
             setSidebarCollapsed(false);
-
-            // 2. Expand the chapter
             setExpanded(prev => ({ ...prev, [chapterName]: true }));
-
-            // 3. Navigate to the first topic
             const firstTopic = chapterObj.topics[0];
             if (firstTopic) {
                 navigate(`/docs/${firstTopic.id}`);
             }
         } else {
-            // Just toggle expansion if sidebar is already expanded
             setExpanded(prev => ({ ...prev, [chapterName]: !prev[chapterName] }));
         }
     };
 
-    const getChapterShortName = (fullName, index) => `CH${index + 1}`;
+    const getTopicStatusIcon = (topicId) => {
+        if (!user) return null; // Don't show status for unauthenticated users
+
+        return topicProgress[topicId] ? (
+            <FiCheckCircle className="text-green-500 text-sm mr-2 shrink-0" />
+        ) : (
+            <FiCircle className="text-gray-500 text-sm mr-2 shrink-0" />
+        );
+    };
 
     return (
         <aside
-            className={`markdownSidebar transition-all  duration-900 ease-in-out
-                ${sidebarCollapsed ? "w-[90px]" : "w-[440px] bg-[#1a1a1a]"} 
+            className={`markdownSidebar transition-all duration-900 ease-in-out
+                ${sidebarCollapsed ? "w-[50px]" : "w-[440px] bg-[#1a1a1a]"} 
                 pb-[3rem] text-white sticky z-40`}
         >
-            {/* Collapse Toggle Button */}
             <div className="sidebarViewport">
                 <div className="sidebarContainer">
                     <div className="flex p-2">
@@ -72,19 +74,24 @@ export default function Sidebar() {
                         </button>
                     </div>
 
-                    {/* Chapters */}
                     {!sidebarCollapsed && (
-                        <nav>
-                            <ul className="space-y-2 pr-2">
+                        <nav className="transition">
+                            <ul className="space-y-2 pr-2 ">
                                 {chapters.map((chapter, index) => (
                                     <li key={chapter.chapter}>
                                         <div
                                             onClick={() => toggleChapter(chapter, index)}
                                             className="cursor-pointer font-semibold hover:bg-[#222] p-2 rounded-lg flex justify-between items-center"
                                         >
-                                            <span className="select-none overflow-hidden text-ellipsis w-full">
+                                            <motion.span
+                                                className="select-none overflow-hidden text-ellipsis w-full "
+                                                initial={{ opacity: 0, x: 0 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: -10 }}
+                                                transition={{ duration: 0.25 }}
+                                            >
                                                 {chapter.chapter}
-                                            </span>
+                                            </motion.span>
                                             <span>
                                                 {expanded[chapter.chapter]
                                                     ? <FiChevronDown size={18} />
@@ -97,7 +104,7 @@ export default function Sidebar() {
                                                 <motion.div
                                                     key={chapter.chapter}
                                                     initial={{ height: 0, opacity: 0 }}
-                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    animate={{ height: "auto", opacity: 0.9 }}
                                                     exit={{ height: 0, opacity: 0 }}
                                                     transition={{ duration: 0.2, ease: "easeInOut" }}
                                                     className="overflow-hidden"
@@ -110,7 +117,7 @@ export default function Sidebar() {
                                                         variants={{
                                                             visible: {
                                                                 transition: {
-                                                                    staggerChildren: 0.05,
+                                                                    staggerChildren: 0.10,
                                                                     when: "beforeChildren"
                                                                 }
                                                             },
@@ -136,10 +143,12 @@ export default function Sidebar() {
                                                                 >
                                                                     <Link
                                                                         to={`/docs/${topic.id}`}
-                                                                        className={`block px-2 py-1 rounded-lg transition ${isActive ? "bg-[#333]" : "hover:bg-[#333]"}`}
+                                                                        className={`block px-2 py-1 rounded-lg transition ${isActive ? "bg-[#333]" : "hover:bg-[#333]"
+                                                                            } flex items-center`}
                                                                         style={{ whiteSpace: "normal", overflow: "visible", textOverflow: "unset" }}
                                                                     >
-                                                                        {topic.title}
+                                                                        {getTopicStatusIcon(topic.id)}
+                                                                        <span className="truncate">{topic.title}</span>
                                                                     </Link>
                                                                 </motion.li>
                                                             );
@@ -154,9 +163,7 @@ export default function Sidebar() {
                         </nav>
                     )}
                 </div>
-
             </div>
-
         </aside>
     );
 }

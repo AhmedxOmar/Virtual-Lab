@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { FaArrowRight } from 'react-icons/fa'
+import React, { useState, useEffect } from 'react';
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useSelector } from 'react-redux';
-
-
 import { FiCheckCircle } from 'react-icons/fi';
-
-import rookieBadge from '../assets/rookie-badge.jpg'
+import { useSelector } from 'react-redux';
+import rookieBadge from '../assets/rookie-badge.jpg';
 
 const quizzes = [
     {
@@ -26,12 +22,18 @@ const quizzes = [
 ];
 
 const UserAchievements = () => {
-
     const [animatedScores, setAnimatedScores] = useState({});
     const [chapters, setChapters] = useState([]);
     const { user, topicProgress } = useSelector((state) => state.auth);
 
     useEffect(() => {
+        // Fetch chapters data
+        fetch("/topics.json")
+            .then((res) => res.json())
+            .then((data) => setChapters(data))
+            .catch((err) => console.error("Failed to load topics:", err));
+
+        // Animate quiz scores
         const timeout = setTimeout(() => {
             setAnimatedScores(quizzes.reduce((acc, quiz) => {
                 acc[quiz.id] = quiz.score;
@@ -42,20 +44,20 @@ const UserAchievements = () => {
         return () => clearTimeout(timeout);
     }, []);
 
+    // Count completed topics
     const completedTopicsCount = Object.keys(topicProgress).filter(id => topicProgress[id]).length;
-
 
     return (
         <div className='flex flex-col py-4'>
-            <div className='userAchievements bg-[#1a1a1a] p-6 w-200  text-white flex h-[max-content] items-center gap-[1rem] justify-between rounded-[20px]'>
-                <div className="learnProgressSection w-[80%]  p-6 rounded-lg shadow-lg">
+            <div className='userAchievements bg-[#1a1a1a] p-6 w-200 text-white flex h-[max-content] items-center gap-[1rem] justify-between rounded-[20px]'>
+                <div className="learnProgressSection w-[80%] p-6 rounded-lg shadow-lg">
                     <h2 className="text-lg font-semibold">Your Achievements</h2>
-                    <p className='text-sm mt-1 text-gray-400'>Completed {completedTopicsCount} topics across {chapters.length} chapters</p>
-
+                    <p className='text-sm mt-1 text-gray-400'>
+                        Completed {completedTopicsCount} topics across {chapters.length} chapters
+                    </p>
                     <div className='relative w-[80%] bg-gray-700 h-[20px] rounded-full mt-2'>
                         <div className='absolute top-0 left-0 h-[20px] bg-purple-500 rounded-full' style={{ width: "65%" }}></div>
                     </div>
-
                     <p className='mt-3'>
                         You're <span className='font-bold text-yellow-400'>Rookie</span> now
                     </p>
@@ -69,6 +71,35 @@ const UserAchievements = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Completed Topics Section */}
+            <div className="progressCard mt-6 bg-[#1a1a1a] p-6 rounded-[20px] shadow-lg">
+                <h2 className='text-lg font-semibold mb-4'>Completed Topics</h2>
+                {chapters.map((chapter) => {
+                    const completedTopics = chapter.topics.filter(topic => topicProgress[topic.id]);
+
+                    return completedTopics.length > 0 && (
+                        <div key={chapter.chapter} className="mb-4">
+                            <h3 className="font-medium mb-2 text-purple-400">{chapter.chapter}</h3>
+                            <div className="grid grid-cols-2 gap-2">
+                                {completedTopics.map((topic) => (
+                                    <div key={topic.id} className="flex items-center gap-2 text-sm p-2 bg-gray-800 rounded">
+                                        <FiCheckCircle className="text-green-500 shrink-0" />
+                                        <span className="truncate">{topic.title}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })}
+
+                {!user && (
+                    <div className="text-gray-400 text-sm mt-4">
+                        Sign in to track your learning progress
+                    </div>
+                )}
+            </div>
+
             <div className="quizzesCard mt-6 bg-[#1a1a1a] p-6 rounded-[20px] shadow-lg">
                 <h2 className='text-lg font-semibold mb-4'>Solved Quizzes</h2>
                 {quizzes.map((quiz) => (
@@ -80,7 +111,6 @@ const UserAchievements = () => {
                                 Review your answers
                                 <MdKeyboardArrowRight />
                             </button>
-
                         </div>
                         <div className='relative w-30 h-30'>
                             <svg className='w-full h-full' viewBox="0 0 36 36">
@@ -104,7 +134,7 @@ const UserAchievements = () => {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default UserAchievements
+export default UserAchievements;

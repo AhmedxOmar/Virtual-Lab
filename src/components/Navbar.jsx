@@ -2,10 +2,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AuthModalManager from "./AuthModalManager";
 import logo from "../assets/virtual-lab-logo.png";
-import Searchbar from "./Searchbar";
+import SearchModal from "./SearchModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import defaultAvatar from "../assets/default-avatar.png";
+import { FiSearch } from "react-icons/fi";
+import { IoCloseCircle } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
     const [activeModal, setActiveModal] = useState(null);
@@ -14,7 +17,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
     const isDocsPage = location.pathname.startsWith("/docs");
 
     const handleLogout = () => {
@@ -34,18 +37,24 @@ const Navbar = () => {
                 <div className="flex gap-[1.5rem]" style={styles.navLinks}>
                     <Link to="/docs/chapter_1_1_what_is_image_processing" className="text-white text-[16px] transition-colors">Docs</Link>
                     <Link to="/about" className="text-white text-[16px] transition-colors">About</Link>
-                    <Link to="/Blog" className="text-white text-[16px] transition-colors">Blog</Link>
+                    <Link to="/blogs" className="text-white text-[16px] transition-colors">Blog</Link>
                     <Link to="/community" className="text-white text-[16px] transition-colors">Community</Link>
                 </div>
 
-                <div className="flex gap-[2rem] items-center">
-                    {
-                        isDocsPage && (
-                            <div className="mx-4 hidden md:block mr-[5rem]">
-                                <Searchbar />
+
+
+
+                <div className="flex gap-[1rem] items-center">
+                    {isDocsPage && (
+                        <div className="mx-4 flex mr-[0rem] items-center">
+                            <div
+                                onClick={() => setIsSearchOpen(true)}
+                                className="bg-[#1f1f1f] py-[16px] px-[16px] rounded-[12px] border border-[#3B3B3B] hover:bg-[#3B3B3B] cursor-pointer"
+                            >
+                                <FiSearch size={22} />
                             </div>
-                        )
-                    }
+                        </div>
+                    )}
 
 
                     {user ? (
@@ -74,7 +83,7 @@ const Navbar = () => {
                         </div>
                     ) : (
                         <button
-                            className="bg-[#1f1f1f] text-[white] text-[14px] cursor-pointer border border-[#3B3B3B] py-[16px] px-[38px] hover:bg-[#3B3B3B] rounded-[32px] ease-in-out font-bold "
+                            className="bg-[#1f1f1f] text-[white] text-[14px] cursor-pointer border border-[#3B3B3B] py-[16px] px-[38px] hover:bg-[#3B3B3B] rounded-[12px] ease-in-out font-bold "
                             style={styles.button}
                             onClick={() => setActiveModal('signup')}
                         >
@@ -86,7 +95,9 @@ const Navbar = () => {
                 {activeModal && (
                     <AuthModalManager activeModal={activeModal} setActiveModal={setActiveModal} />
                 )}
+
             </div>
+            <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
         </nav>
     );
 };
